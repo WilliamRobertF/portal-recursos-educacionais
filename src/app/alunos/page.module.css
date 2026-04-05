@@ -1,0 +1,472 @@
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--tertiary) 0%, var(--tertiary-container) 100%);
+  padding: var(--spacing-3xl) var(--spacing-xl);
+}
+
+.heroContainer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .heroContainer {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.heroContent {
+  flex: 3;
+}
+
+.heroTag {
+  display: inline-block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--tertiary-fixed);
+  color: var(--on-tertiary-fixed);
+  border-radius: 9999px;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--spacing-xl);
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--spacing-xl);
+}
+
+.heroAccent {
+  color: var(--tertiary-fixed-dim);
+}
+
+.heroContent > p {
+  color: var(--tertiary-fixed);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 560px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.heroCta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 100%);
+  color: #ffffff;
+  padding: var(--spacing-md) var(--spacing-2xl);
+  border-radius: var(--radius-lg);
+  font-weight: 700;
+  box-shadow: var(--editorial-shadow);
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.heroCta:hover {
+  box-shadow: 0 12px 36px rgba(27, 27, 28, 0.12);
+  transform: translateY(-2px);
+}
+
+.heroImage {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1 / 1;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-3xl);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.blurShape {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  background-color: var(--secondary-container);
+  opacity: 0.2;
+  border-radius: 9999px;
+  filter: blur(60px);
+}
+
+.heroSv {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  opacity: 0.1;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Search bar ── */
+.searchBar {
+  position: relative;
+  z-index: 20;
+  max-width: var(--max-width);
+  margin: -32px auto 0;
+  padding: 0 var(--spacing-xl);
+}
+
+.searchContainer {
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-md);
+  box-shadow: 0 8px 32px rgba(27, 27, 28, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .searchContainer {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.searchWrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: var(--surface-container-low);
+  border: 1px solid rgba(194, 199, 209, 0.2);
+  border-radius: var(--radius-lg);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.searchWrapper:focus-within {
+  box-shadow: 0 0 0 2px var(--primary);
+  border-color: var(--primary);
+}
+
+.searchWrapper > .material-symbols-outlined {
+  color: var(--on-surface-variant);
+  font-size: 1.25rem;
+  margin-left: var(--spacing-md);
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.searchWrapper:focus-within > .material-symbols-outlined {
+  color: var(--primary);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  color: var(--on-surface);
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: var(--on-surface-variant);
+}
+
+.filterChips {
+  display: flex;
+  gap: var(--spacing-sm);
+  overflow-x: auto;
+}
+
+.filterChip {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  border-radius: 9999px;
+  font-family: var(--font-label);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.filterChip:hover {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+.filterChipActive {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+.noResults {
+  text-align: center;
+  color: var(--on-surface-variant);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+/* ── Resource grid ── */
+.gridSection {
+  padding: var(--spacing-3xl) var(--spacing-xl);
+  background-color: var(--surface);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.sectionHeader h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+
+.sectionDivider {
+  width: 6rem;
+  height: 6px;
+  background-color: var(--secondary);
+  border-radius: 9999px;
+  margin: var(--spacing-md) auto;
+}
+
+.sectionHeader p {
+  color: var(--on-surface-variant);
+  font-size: var(--font-size-lg);
+  font-weight: 300;
+  max-width: 640px;
+  margin: var(--spacing-md) auto 0;
+}
+
+.resourceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+/* ── Dica do Portal card ── */
+.dicaCard {
+  background-color: var(--primary-container);
+  padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-xl) var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.dicaGlow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.dicaContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.dicaContent h3 {
+  color: #ffffff;
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  margin-bottom: var(--spacing-md);
+}
+
+.dicaContent p {
+  color: var(--on-primary-container);
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  margin-bottom: var(--spacing-xl);
+}
+
+.dicaBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-md) 0;
+  background-color: #ffffff;
+  color: var(--primary);
+  border-radius: var(--radius-lg);
+  font-weight: 900;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.dicaBtn:hover {
+  background-color: var(--primary-fixed);
+  transform: scale(0.97);
+}
+
+.dicaIcon {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  opacity: 0.2;
+  z-index: 2;
+}
+
+.dicaIcon [class*="material-symbols"] {
+  font-size: 4rem;
+  color: #ffffff;
+}
+
+/* ── Cursos Sugeridos ── */
+.cursosSection {
+  background-color: var(--surface-container-low);
+  padding: var(--spacing-3xl) var(--spacing-xl);
+}
+
+.cursosHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.cursosLine {
+  width: 2rem;
+  height: 2px;
+  background-color: var(--tertiary);
+}
+
+.cursosHeader span {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.cursosSection h2 {
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.cursosSection > .container > p {
+  color: var(--on-surface-variant);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  max-width: 560px;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.cursosGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+}
+
+@media (min-width: 768px) {
+  .cursosGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cursoCard {
+  background-color: var(--surface-container-lowest);
+  padding: var(--spacing-2xl);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(194, 199, 209, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  text-decoration: none;
+  color: var(--on-surface);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.cursoCard:hover {
+  box-shadow: 0 12px 36px rgba(27, 27, 28, 0.08);
+  transform: translateY(-4px);
+  text-decoration: none;
+  color: var(--on-surface);
+}
+
+.cursoCard [class*="material-symbols"] {
+  font-size: 2rem;
+  color: var(--tertiary);
+}
+
+.cursoCard h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.cursoCard p {
+  color: var(--on-surface-variant);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  flex-grow: 1;
+}
+
+.cursoArrow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  color: var(--primary);
+  margin-top: auto;
+}
+
+.cursoArrow [class*="material-symbols"] {
+  font-size: 1.125rem;
+  transition: margin-left 0.2s ease;
+}
+
+.cursoCard:hover .cursoArrow [class*="material-symbols"] {
+  margin-left: 0.35rem;
+}

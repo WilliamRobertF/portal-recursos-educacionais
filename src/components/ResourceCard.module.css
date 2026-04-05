@@ -1,0 +1,87 @@
+.card {
+  background-color: var(--surface-container-lowest);
+  padding: var(--spacing-xl) var(--spacing-xl) 0;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 24px rgba(27, 27, 28, 0.04);
+  border: 1px solid rgba(194, 199, 209, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  transition: box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  padding-bottom: var(--spacing-lg);
+}
+
+.card:hover {
+  box-shadow: 0 12px 36px rgba(27, 27, 28, 0.08);
+  transform: translateY(-4px);
+}
+
+.iconWrapper {
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-xl);
+  background-color: rgba(0, 51, 91, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.iconWrapper [class*="material-symbols"] {
+  font-size: 2.5rem;
+}
+
+.tag {
+  position: absolute;
+  top: var(--spacing-xl);
+  right: var(--spacing-xl);
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-default);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin-bottom: var(--spacing-sm);
+}
+
+.description {
+  color: var(--on-surface-variant);
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  flex-grow: 1;
+  margin-bottom: var(--spacing-xl);
+  font-weight: 300;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.cta:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+  text-decoration: none;
+}
