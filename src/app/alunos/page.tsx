@@ -1,64 +1,106 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import ResourceCard from '@/components/ResourceCard';
 import { alunosResources } from '@/data/resources';
 import styles from './page.module.css';
 
+const ITEMS_PER_PAGE = 6;
+
 const FILTERS = [
   { label: 'Todos', category: '' },
-  { label: 'Matemática', category: 'matematica' },
-  { label: 'Idiomas', category: 'idiomas' },
-  { label: 'Tecnologia', category: 'tecnologia' },
+  { label: 'Gov', category: 'gov' },
+  { label: 'Grátis', category: 'gratis' },
+  { label: 'Ferramenta', category: 'ferramenta' },
 ];
 
-const RESOURCE_CATEGORIES: Record<string, string> = {
-  khan: 'matematica',
-  'code.org': 'tecnologia',
-  duolingo: 'idiomas',
-  obmep: 'matematica',
-  'brasil escola': 'matematica',
-};
+function matchesActiveFilters(resource: typeof alunosResources[number], activeFilters: string[]): boolean {
+  if (activeFilters.length === 0) return true;
+
+  const rTags = resource.tags ?? [];
+  for (const filter of activeFilters) {
+    if (filter === 'gov' && rTags.includes('GOV')) return true;
+    if (filter === 'gratis' && rTags.includes('GRÁTIS')) return true;
+    if (filter === 'ferramenta' && rTags.includes('FERRAMENTA')) return true;
+  }
+  return false;
+}
 
 export default function AlunosPage() {
   const [search, setSearch] = useState('');
-  const [activeFilter, setActiveFilter] = useState('');
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [mounted, setMounted] = useState(false);
 
-  const filtered = alunosResources.filter((r) => {
-    if (activeFilter) {
-      const cat = RESOURCE_CATEGORIES[r.title.toLowerCase()];
-      if (cat !== activeFilter) return false;
-    }
-    if (search) {
-      const q = search.toLowerCase();
-      return (
-        r.title.toLowerCase().includes(q) ||
-        r.description.toLowerCase().includes(q)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const filtered = useMemo(() => {
+    return alunosResources.filter((r) => {
+      if (!matchesActiveFilters(r, activeFilters)) return false;
+      if (search) {
+        const q = search.toLowerCase();
+        return (
+          r.title.toLowerCase().includes(q) ||
+          r.description.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+  }, [search, activeFilters]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+
+  const displayItems = mounted ? filtered.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  ) : filtered;
+
+  function handlePageChange(page: number) {
+    setCurrentPage(page);
+    document.getElementById('resource-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function toggleFilter(category: string) {
+    if (category === '') {
+      setActiveFilters([]);
+    } else {
+      setActiveFilters((prev) =>
+        prev.includes(category)
+          ? prev.filter((f) => f !== category)
+          : [...prev, category]
       );
     }
-    return true;
-  });
+    setCurrentPage(1);
+  }
+
+  function handleSearchChange(value: string) {
+    setSearch(value);
+    setCurrentPage(1);
+  }
+
+  function isChipActive(category: string) {
+    if (category === '') return activeFilters.length === 0;
+    return activeFilters.includes(category);
+  }
 
   return (
     <div>
       {/* Hero */}
       <section className={styles.hero}>
+        <div className={styles.heroOverlay} />
         <div className={styles.heroContainer}>
           <div className={styles.heroContent}>
-            <span className={styles.heroTag}>Área do Estudante</span>
             <h1>
-              Onde o seu futuro <br />
-              <span className={styles.heroAccent}>começa agora.</span>
+              Suas ferramentas de estudo,
+              tudo em um <span className={styles.heroAccent}>só lugar.</span>
             </h1>
             <p>
-              Explore as melhores ferramentas gratuitas para reforçar seus
+              Explore as melhores plataformas gratuitas para reforçar seus
               estudos, aprender coisas novas e se preparar para os desafios
               da escola e da vida.
             </p>
-            <button className={styles.heroCta}>
-              Começar a Aprender
-              <span className="material-symbols-outlined">arrow_forward</span>
-            </button>
           </div>
           <div className={styles.heroImage}>
             <div className={styles.imagePlaceholder} />
@@ -78,17 +120,17 @@ export default function AlunosPage() {
               placeholder="O que você quer aprender? (Ex: Matemática, Programação...)"
               className={styles.searchInput}
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
             />
           </div>
-          <div className={styles.filterChips}>
+          <div className={styles.filterCarousel}>
             {FILTERS.map((f) => (
               <button
                 key={f.label}
                 className={`${styles.filterChip} ${
-                  activeFilter === f.category ? styles.filterChipActive : ''
+                  isChipActive(f.category) ? styles.filterChipActive : ''
                 }`}
-                onClick={() => setActiveFilter(f.category)}
+                onClick={() => toggleFilter(f.category)}
               >
                 {f.label}
               </button>
@@ -109,8 +151,8 @@ export default function AlunosPage() {
             </p>
           </div>
 
-          <div className={styles.resourceGrid}>
-            {filtered.map((resource) => (
+          <div id="resource-grid" className={styles.resourceGrid}>
+            {displayItems.map((resource) => (
               <ResourceCard key={resource.url} resource={resource} />
             ))}
             {filtered.length === 0 && (
@@ -119,6 +161,36 @@ export default function AlunosPage() {
               </p>
             )}
           </div>
+
+          {mounted && totalPages > 1 && (
+            <div className={styles.pagination}>
+              <button
+                className={styles.pageBtn}
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                <span className="material-symbols-outlined">chevron_left</span>
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  className={`${styles.pageNumber} ${
+                    currentPage === page ? styles.pageNumberActive : ''
+                  }`}
+                  onClick={() => handlePageChange(page)}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                className={styles.pageBtn}
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import ResourceCard from '@/components/ResourceCard';
 import { professoresResources } from '@/data/resources';
 import styles from './page.module.css';
@@ -26,61 +26,100 @@ const cursosDestaque = [
   },
 ];
 
+const ITEMS_PER_PAGE = 6;
+
 const FILTERS = [
   { label: 'Todos', category: '' },
-  { label: 'Plataformas', category: 'plataforma' },
-  { label: 'Legislação', category: 'legislacao' },
+  { label: 'Gov', category: 'gov' },
+  { label: 'Grátis', category: 'gratis' },
+  { label: 'Ferramenta', category: 'ferramenta' },
 ];
-
-const RESOURCE_CATEGORIES: Record<string, string> = {
-  avamec: 'plataforma',
-  'nova escola': 'plataforma',
-  'khan academy': 'plataforma',
-  bncc: 'legislacao',
-  'governo federal': 'legislacao',
-};
 
 export default function ProfessoresPage() {
   const [search, setSearch] = useState('');
-  const [activeFilter, setActiveFilter] = useState('');
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [mounted, setMounted] = useState(false);
 
-  const filtered = professoresResources.filter((r) => {
-    if (activeFilter) {
-      const cat = RESOURCE_CATEGORIES[r.title.toLowerCase()];
-      if (cat !== activeFilter) return false;
-    }
-    if (search) {
-      const q = search.toLowerCase();
-      return (
-        r.title.toLowerCase().includes(q) ||
-        r.description.toLowerCase().includes(q)
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const filtered = useMemo(() => {
+    return professoresResources.filter((r) => {
+      if (activeFilters.length > 0) {
+        const rTags = r.tags ?? [];
+        let matched = false;
+        for (const filter of activeFilters) {
+          if (filter === 'gov' && rTags.includes('GOV')) { matched = true; break; }
+          if (filter === 'gratis' && rTags.includes('GRÁTIS')) { matched = true; break; }
+          if (filter === 'ferramenta' && rTags.includes('FERRAMENTA')) { matched = true; break; }
+        }
+        if (!matched) return false;
+      }
+      if (search) {
+        const q = search.toLowerCase();
+        return (
+          r.title.toLowerCase().includes(q) ||
+          r.description.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+  }, [search, activeFilters]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+
+  const displayItems = mounted ? filtered.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  ) : filtered;
+
+  function handlePageChange(page: number) {
+    setCurrentPage(page);
+    document.getElementById('resource-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function toggleFilter(category: string) {
+    if (category === '') {
+      setActiveFilters([]);
+    } else {
+      setActiveFilters((prev) =>
+        prev.includes(category)
+          ? prev.filter((f) => f !== category)
+          : [...prev, category]
       );
     }
-    return true;
-  });
+    setCurrentPage(1);
+  }
+
+  function handleSearchChange(value: string) {
+    setSearch(value);
+    setCurrentPage(1);
+  }
+
+  function isChipActive(category: string) {
+    if (category === '') return activeFilters.length === 0;
+    return activeFilters.includes(category);
+  }
 
   return (
     <div>
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroOverlay} />
-        <div className={styles.container}>
-          <h1>
-            Recursos e Ferramentas para Educadores
-          </h1>
-          <p>
-            Explore as principais plataformas, diretrizes e materiais de apoio
-            para sua prática pedagógica.
-          </p>
-          <div className={styles.heroChips}>
-            <div className={styles.chip}>
-              <span className="material-symbols-outlined">verified</span>
-              Curadoria Oficial
-            </div>
-            <div className={styles.chip}>
-              <span className="material-symbols-outlined">school</span>
-              Padrão BNCC
-            </div>
+        <div className={styles.heroContainer}>
+          <div className={styles.heroContent}>
+            <h1>
+              Recursos e Ferramentas para Educadores
+            </h1>
+            <p>
+              Explore as principais plataformas, diretrizes e materiais de apoio
+              para sua prática pedagógica.
+            </p>
+          </div>
+          <div className={styles.heroImage}>
+            <div className={styles.imagePlaceholder} />
           </div>
         </div>
       </section>
@@ -95,17 +134,17 @@ export default function ProfessoresPage() {
               placeholder="Buscar recursos educacionais... (Ex: BNCC, Khan Academy, Nova Escola)"
               className={styles.searchInput}
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
             />
           </div>
-          <div className={styles.filterChips}>
+          <div className={styles.filterCarousel}>
             {FILTERS.map((f) => (
               <button
                 key={f.label}
                 className={`${styles.filterChip} ${
-                  activeFilter === f.category ? styles.filterChipActive : ''
+                  isChipActive(f.category) ? styles.filterChipActive : ''
                 }`}
-                onClick={() => setActiveFilter(f.category)}
+                onClick={() => toggleFilter(f.category)}
               >
                 {f.label}
               </button>
@@ -129,8 +168,8 @@ export default function ProfessoresPage() {
       {/* Resource Grid */}
       <section className={styles.gridSection}>
         <div className={styles.container}>
-          <div className={styles.resourceGrid}>
-            {filtered.map((resource) => (
+          <div id="resource-grid" className={styles.resourceGrid}>
+            {displayItems.map((resource) => (
               <ResourceCard key={resource.url} resource={resource} />
             ))}
             {filtered.length === 0 && (
@@ -139,6 +178,36 @@ export default function ProfessoresPage() {
               </p>
             )}
           </div>
+
+          {mounted && totalPages > 1 && (
+            <div className={styles.pagination}>
+              <button
+                className={styles.pageBtn}
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                <span className="material-symbols-outlined">chevron_left</span>
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  className={`${styles.pageNumber} ${
+                    currentPage === page ? styles.pageNumberActive : ''
+                  }`}
+                  onClick={() => handlePageChange(page)}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                className={styles.pageBtn}
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

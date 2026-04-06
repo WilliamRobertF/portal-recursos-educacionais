@@ -25,8 +25,12 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
           {resource.icon}
         </span>
       </div>
-      {resource.tag && (
-        <span className={styles.tag}>{resource.tag}</span>
+      {resource.tags && resource.tags.length > 0 && (
+        <div className={styles.tags}>
+          {resource.tags.map((t) => (
+            <span key={t} className={styles.tag} data-tag={t}>{t}</span>
+          ))}
+        </div>
       )}
       <h3 className={styles.title}>{resource.title}</h3>
       <p className={styles.description}>{resource.description}</p>

@@ -23,7 +23,7 @@ export default function Home() {
               <a href="#perfis" className={styles.btnPrimary}>
                 Explorar Catálogo
               </a>
-              <a href="#about" className={styles.btnSecondary}>
+              <a href="#sobre" className={styles.btnSecondary}>
                 Sobre o Projeto
               </a>
             </div>
@@ -88,7 +88,7 @@ export default function Home() {
               </div>
               <div className={styles.mosaicCol}>
                 <div className={styles.mosaicStat}>
-                  <span>15+</span>
+                  <span>25+</span>
                   <small>Recursos Disponíveis</small>
                 </div>
                 <div className={styles.mosaicImage}>

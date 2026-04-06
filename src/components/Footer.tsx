@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.left}>
-          <div className={styles.title}>WRSoft</div>
+          <div className={styles.title}>PORTAL EDUCATIVO</div>
           <p className={styles.description}>
             Fomentando a excelência na educação brasileira através de recursos
             digitais acessíveis e de alta qualidade.
@@ -37,7 +37,8 @@ export default function Footer() {
       </div>
 
       <div className={styles.odsRibbon}>
-        © 2026 Portal de Recursos Educacionais. Desenvolvido por WRSoft.
+        © 2026 Portal de Recursos Educacionais — todos os direitos reservados.
+        <span className={styles.author}> | Desenvolvido por WRSoft.</span>
       </div>
     </footer>
   );
