@@ -94,7 +94,7 @@ export default function AlunosPage() {
           <div className={styles.heroContent}>
             <h1>
               Suas ferramentas de estudo,
-              tudo em um <span className={styles.heroAccent}>só lugar.</span>
+              tudo em um só lugar.
             </h1>
             <p>
               Explore as melhores plataformas gratuitas para reforçar seus
@@ -103,7 +103,7 @@ export default function AlunosPage() {
             </p>
           </div>
           <div className={styles.heroImage}>
-            <div className={styles.imagePlaceholder} />
+            <img src="/images/alunos_illustration.png" alt="Estudos" className={styles.heroImg} />
             <div className={styles.blurShape} />
           </div>
         </div>
@@ -209,7 +209,7 @@ export default function AlunosPage() {
           <div className={styles.cursosGrid}>
             <a
               className={styles.cursoCard}
-              href="https://www.ev.org.br/"
+              href="https://www.escolavirtual.gov.br/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -223,7 +223,7 @@ export default function AlunosPage() {
             </a>
             <a
               className={styles.cursoCard}
-              href="https://www.fundacaobradesco.org.br/"
+              href="https://www.ev.org.br/"
               target="_blank"
               rel="noopener noreferrer"
             >

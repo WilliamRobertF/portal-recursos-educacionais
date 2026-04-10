@@ -150,7 +150,7 @@ export const professoresResources: Resource[] = [
     title: 'Lumini — Recursos Educacionais',
     description:
       'Plataforma de soluções educacionais digitais com conteúdos alinhados à BNCC, formação docente e ferramentas de gestão pedagógica.',
-    url: 'https://www.lumini.educ.br/',
+    url: 'https://lumnieducacao.com.br/',
     tags: ['GRÁTIS'],
     icon: 'diamond',
     iconColor: 'tertiary',
@@ -160,7 +160,7 @@ export const professoresResources: Resource[] = [
     title: 'Canva for Education',
     description:
       'Plataforma de design visual gratuito para escolas e educadores criarem materiais didáticos profissionais.',
-    url: 'https://www.canva.com/education/',
+    url: 'https://www.canva.com/pt_br/educacao/',
     tags: ['FERRAMENTA', 'GRÁTIS'],
     icon: 'palette',
     iconColor: 'secondary',
@@ -253,7 +253,7 @@ export const paisResources: Resource[] = [
     title: 'Escola Virtual — Gov.br',
     description:
       'Plataforma oficial com cursos gratuitos em cidadania digital, informática e competências para toda a família.',
-    url: 'https://www.ev.org.br/',
+    url: 'https://www.escolavirtual.gov.br/',
     tags: ['GOV', 'GRÁTIS'],
     icon: 'hub',
     iconColor: 'primary',
@@ -263,7 +263,7 @@ export const paisResources: Resource[] = [
     title: 'Fundação Bradesco',
     description:
       'Cursos gratuitos de matemática, português, informática e cidadania digital para todas as idades. Com certificação reconhecida.',
-    url: 'https://escolavirtual.org.br/',
+    url: 'https://www.ev.org.br/',
     tags: ['GRÁTIS'],
     icon: 'menu_book',
     iconColor: 'primary',
@@ -290,14 +290,14 @@ export const paisResources: Resource[] = [
     ctaLabel: 'Conhecer',
   },
   {
-    title: 'Instituto Natura',
+    title: 'Laboratório de Educação (LabEdu)',
     description:
-      'ONG que oferece programas educativos gratuitos, conteúdos socioemocionais e ferramentas para famílias fortalecerem o aprendizado em casa.',
-    url: 'https://institutonatura.org/',
+      'Apoio gratuito para pais e responsáveis com materiais e metodologias prontas para auxiliar as crianças a aprenderem de forma leve dentro e fora de casa.',
+    url: 'https://labedu.org.br/',
     tags: ['GRÁTIS'],
     icon: 'volunteer_activism',
     iconColor: 'tertiary',
-    ctaLabel: 'Explorar',
+    ctaLabel: 'Acessar Materiais',
   },
   {
     title: 'Instituto Península',
@@ -313,7 +313,7 @@ export const paisResources: Resource[] = [
     title: 'Canal Futura',
     description:
       'Canal educativo com conteúdos pedagógicos, reportagens e materiais de apoio para acompanhar o aprendizado dos filhos em casa.',
-    url: 'https://canalfutura.org/',
+    url: 'https://www.futura.org.br/',
     tags: ['GRÁTIS'],
     icon: 'live_tv',
     iconColor: 'tertiary',
@@ -332,7 +332,7 @@ export const paisResources: Resource[] = [
     title: 'Escola Digital',
     description:
       'Plataforma da SME-SP com trilhas de aprendizagem, videoaulas e atividades organizadas por ano e disciplina. Ideal para pais acompanharem o conteúdo que o filho está estudando.',
-    url: 'https://escoladigital.org.br/',
+    url: 'https://curriculo.sme.prefeitura.sp.gov.br/',
     tags: ['GRÁTIS'],
     icon: 'school',
     iconColor: 'primary',
@@ -414,7 +414,7 @@ export const alunosResources: Resource[] = [
     title: 'OBMEP',
     description:
       'Prepare-se para a Olimpíada Brasileira de Matemática. Acesse provas anteriores, vídeos e materiais exclusivos para brilhar nos cálculos.',
-    url: 'https://www.obmep.org.br/banco-de-questoes/',
+    url: 'https://www.obmep.org.br/',
     tags: ['GRÁTIS'],
     icon: 'military_tech',
     iconColor: '#f57c00',

@@ -29,10 +29,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.heroImage}>
-            <div className={styles.imageWrapper}>
-              <div className={styles.glow1} />
-              <div className={styles.glow2} />
-            </div>
+            <img src="/images/home_hero.png" alt="Portal de Recursos" className={styles.heroImg} />
           </div>
         </div>
       </section>
@@ -73,26 +70,26 @@ export default function Home() {
       </section>
 
       {/* Sobre o Projeto */}
-      <section id="about" className={styles.about}>
+      <section id="sobre" className={styles.about}>
         <div className={styles.container}>
           <div className={styles.aboutGrid}>
             <div className={styles.aboutMosaic}>
               <div className={styles.mosaicCol}>
                 <div className={styles.mosaicImage}>
-                  <div className={styles.mosaicPlaceholder1} />
+                  <img src="/images/mosaic_1.png" alt="Estudantes" className={styles.mosaicImg} />
                 </div>
                 <div className={styles.mosaicStat}>
-                  <span>100%</span>
-                  <small>Gratuito</small>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2.5rem', marginBottom: '8px', display: 'block' }}>diversity_3</span>
+                  <small>Para Todos os Públicos</small>
                 </div>
               </div>
               <div className={styles.mosaicCol}>
                 <div className={styles.mosaicStat}>
-                  <span>25+</span>
-                  <small>Recursos Disponíveis</small>
+                  <span>150+</span>
+                  <small>Plataformas & Ferramentas</small>
                 </div>
                 <div className={styles.mosaicImage}>
-                  <div className={styles.mosaicPlaceholder2} />
+                  <img src="/images/mosaic_2.png" alt="Mundo Educativo" className={styles.mosaicImg} />
                 </div>
               </div>
             </div>

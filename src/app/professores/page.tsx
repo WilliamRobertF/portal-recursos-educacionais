@@ -15,13 +15,13 @@ const cursosDestaque = [
   {
     title: 'Formação Nova Escola',
     description: 'Cursos práticos sobre planejamento, avaliação e BNCC com certificação.',
-    url: 'https://novaescola.org.br/formacao',
+    url: 'https://cursos.novaescola.org.br/',
     ctaLabel: 'Explorar',
   },
   {
     title: 'Canal do Ensino',
     description: 'Cursos gratuitos de metodologias ativas, tecnologia educacional e avaliação formativa.',
-    url: 'https://cursocanaldoensino.com.br/',
+    url: 'https://canaldoensino.com.br/',
     ctaLabel: 'Inscrever-se',
   },
 ];
@@ -119,7 +119,7 @@ export default function ProfessoresPage() {
             </p>
           </div>
           <div className={styles.heroImage}>
-            <div className={styles.imagePlaceholder} />
+            <img src="/images/professores_illustration.png" alt="Recursos para professores" className={styles.heroImg} />
           </div>
         </div>
       </section>

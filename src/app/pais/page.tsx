@@ -11,7 +11,7 @@ const cursosDestaque = [
   {
     title: 'Escola de Pais do Brasil',
     description: 'Palestras e orientações para famílias sobre educação, disciplina positiva e desenvolvimento infantil.',
-    url: 'https://www.escoladepais.com.br/',
+    url: 'https://escoladepais.org.br/',
     ctaLabel: 'Saiba Mais',
   },
   {
@@ -21,10 +21,10 @@ const cursosDestaque = [
     ctaLabel: 'Explorar',
   },
   {
-    title: 'Alfazendo',
-    description: 'Jogos educativos e atividades práticas para fazer com as crianças e estimular o raciocínio.',
-    url: 'https://alfazendo.com.br/',
-    ctaLabel: 'Atividades',
+    title: 'Tempo Junto',
+    description: 'Ideias diárias de brincadeiras e atividades criativas para os pais fazerem com os filhos, estimulando o desenvolvimento.',
+    url: 'https://www.tempojunto.com/',
+    ctaLabel: 'Ver Atividades',
   },
 ];
 
@@ -118,7 +118,7 @@ export default function PaisPage() {
             </p>
           </div>
           <div className={styles.heroImage}>
-            <div className={styles.imagePlaceholder} />
+            <img src="/images/pais_illustration.png" alt="Pais e filhos" className={styles.heroImg} />
           </div>
         </div>
         <div className={styles.glow} />
